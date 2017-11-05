@@ -6,6 +6,8 @@
             <result column="blog_id" jdbcType="INTEGER" property="blogId"/>
             <result column="uid" jdbcType="INTEGER" property="uid"/>
             <result column="fabulous_time" jdbcType="TIMESTAMP" property="fabulousTime"/>
+            <result column="target_type" jdbcType="INTEGER" property="targetType"/>
+            <result column="comment_id" jdbcType="INTEGER" property="commentId"/>
     </resultMap>
 
     <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->

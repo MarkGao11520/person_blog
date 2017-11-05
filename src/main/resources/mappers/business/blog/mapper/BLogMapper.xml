@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwf.family.business.blog.dao.BLogRepository">
+    <resultMap id="BaseResultMap" type="com.gwf.family.business.blog.entity.BLog">
+            <id column="id" jdbcType="INTEGER" property="id"/>
+            <result column="log_id" jdbcType="INTEGER" property="logId"/>
+            <result column="type" jdbcType="INTEGER" property="type"/>
+            <result column="log_time" jdbcType="TIMESTAMP" property="logTime"/>
+            <result column="read_status" jdbcType="INTEGER" property="readStatus"/>
+    </resultMap>
+
+    <cache type="com.gwf.family.business.core.util.RedisCache"/>
+</mapper>

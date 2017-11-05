@@ -38,6 +38,12 @@ public class BComment  implements Serializable{
     /** 评论时间 */
     @ApiModelProperty(value = "评论时间")
     private Date stayTime;
+    @ApiModelProperty(value = "评论的目标用户id")
+    private Integer targetUid;
+    @ApiModelProperty(value = "评论的类型,1博客内容，2首页留言板")
+    private Integer targetType;
+
+
 
 }
 

@@ -7,6 +7,8 @@
             <result column="blog_id" jdbcType="INTEGER" property="blogId"/>
             <result column="content" jdbcType="LONGVARCHAR" property="content"/>
             <result column="stay_time" jdbcType="TIMESTAMP" property="stayTime"/>
+            <result column="target_uid" javaType="INTEGER" property="targetUid"></result>
+            <result column="target_type" javaType="INTEGER" property="targetType"></result>
     </resultMap>
 
     <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
