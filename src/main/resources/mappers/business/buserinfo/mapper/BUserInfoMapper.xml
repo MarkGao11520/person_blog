@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwf.family.business.buserinfo.dao.BUserInfoRepository">
+    <resultMap id="BaseResultMap" type="com.gwf.family.business.buserinfo.entity.BUserInfo">
+            <id column="id" jdbcType="INTEGER" property="id"/>
+            <result column="nike_name" jdbcType="VARCHAR" property="nikeName"/>
+            <result column="phone" jdbcType="VARCHAR" property="phone"/>
+            <result column="qq" jdbcType="VARCHAR" property="qq"/>
+            <result column="wechat" jdbcType="VARCHAR" property="wechat"/>
+            <result column="sex" jdbcType="BIT" property="sex"/>
+            <result column="head_pic" jdbcType="VARCHAR" property="headPic"/>
+            <result column="is_lock" jdbcType="BIT" property="isLock"/>
+    </resultMap>
+
+    <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
+</mapper>

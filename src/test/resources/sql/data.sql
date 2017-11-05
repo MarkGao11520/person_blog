@@ -7,12 +7,9 @@ VALUES
 
 INSERT INTO `sys_user`
 VALUES
-('1', '$2a$10$NYw3YvE.XvF.hgMHfAoLo.KtMT6KpWKxNtoUhFZbM2zNuUyiJWcp2', 'gwf'),
-('2', '$2a$10$NYw3YvE.XvF.hgMHfAoLo.KtMT6KpWKxNtoUhFZbM2zNuUyiJWcp2', 'jd'),
-('3', '$2a$10$NYw3YvE.XvF.hgMHfAoLo.KtMT6KpWKxNtoUhFZbM2zNuUyiJWcp2', 'gzf');
+('1', '$2a$10$JXHWa.lciqvKRaTyK4qTr.ctD9oSWHt4l3YqXadvfktwnHwvFOQ.i', 'admin');
 
 INSERT INTO `sys_user_roles`
 VALUES
-('1', '1', '1');
-
+('1', '1', '1'),('1','2','2');
 COMMIT;

@@ -3,13 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.wooyoo.learning</groupId>
-    <artifactId>spring-boot-mybatis-with-redis</artifactId>
+    <groupId>com.blog</groupId>
+    <artifactId>person_blog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>spring-boot-mybatis-with-redis</name>
-    <description>Spring boot + mybatis + redis as second level cache</description>
+    <name>person_blog</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

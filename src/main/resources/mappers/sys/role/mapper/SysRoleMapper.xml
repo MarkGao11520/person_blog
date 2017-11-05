@@ -6,5 +6,5 @@
             <result column="name" jdbcType="VARCHAR" property="name"/>
     </resultMap>
 
-    <cache type="com.gwf.family.business.core.util.RedisCache"/>
+    <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
 </mapper>

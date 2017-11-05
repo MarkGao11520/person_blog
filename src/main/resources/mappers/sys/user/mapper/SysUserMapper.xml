@@ -7,5 +7,5 @@
             <result column="username" jdbcType="INTEGER" property="username"/>
     </resultMap>
 
-    <cache type="com.gwf.family.business.core.util.RedisCache"/>
+    <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
 </mapper>

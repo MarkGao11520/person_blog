@@ -3,6 +3,7 @@ package com.gwf.family.configurer;
 import com.gwf.family.business.core.results.AuthErrorEnum;
 import com.gwf.family.business.core.results.Result;
 import com.gwf.family.business.core.results.ResultCode;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -20,6 +21,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
         // 捕获AuthenticationException中的message，并封装成自定义异常抛出
         response.setCharacterEncoding("utf-8");
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.getWriter().write( new Result().setCode(ResultCode.UNAUTHORIZED).setMessage(AuthErrorEnum.AUTH_HEADER_ERROR.getMessage()).toString());
     }
 }

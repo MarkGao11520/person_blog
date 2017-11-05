@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwf.family.business.bvisit.dao.BVisitRepository">
+    <resultMap id="BaseResultMap" type="com.gwf.family.business.bvisit.entity.BVisit">
+            <id column="id" jdbcType="INTEGER" property="id"/>
+            <result column="uid" jdbcType="INTEGER" property="uid"/>
+            <result column="blog_id" jdbcType="INTEGER" property="blogId"/>
+            <result column="visit_time" jdbcType="TIMESTAMP" property="visitTime"/>
+            <result column="visit_ip" jdbcType="VARCHAR" property="visitIp"/>
+    </resultMap>
+
+    <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
+</mapper>

@@ -2,6 +2,7 @@ package com.gwf.family.sys.user.entity;
 
 import com.gwf.family.sys.role.entity.SysRole;
 import com.gwf.family.sys.userroles.entity.SysUserRoles;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -36,6 +37,7 @@ public class SysUser  implements Serializable{
 
     /**权限列表**/
     @Transient
+    @ApiModelProperty("权限列表，例如[{\"id\":1,\"name\":\"ROLE_USER\"}]")
     private List<SysRole> roles;
 
 }
