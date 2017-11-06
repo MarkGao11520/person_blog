@@ -25,7 +25,7 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/sys/user")
-@Api(description = "系统用户（登录账号）相关")
+@Api(description = "系统用户（登录账号）相关",position = 1)
 //@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class SysUserController {
     @Autowired

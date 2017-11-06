@@ -18,7 +18,7 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/sys/role")
-@Api(description = "权限相关")
+@Api(description = "权限相关",position = 2)
 public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;

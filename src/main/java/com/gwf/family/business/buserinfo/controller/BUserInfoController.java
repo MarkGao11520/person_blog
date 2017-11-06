@@ -21,6 +21,7 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/b/user/info")
+@Api(description = "用户操作",position = 4)
 public class BUserInfoController {
     @Autowired
     private BUserInfoService bUserInfoService;

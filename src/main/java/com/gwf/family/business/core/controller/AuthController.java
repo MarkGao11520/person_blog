@@ -22,7 +22,7 @@ import java.util.List;
  * Created by gaowenfeng on 2017/8/9.
  */
 @RestController
-@Api(description = "权限校验")
+@Api(description = "权限校验",position = 0)
 public class AuthController {
     @Value("${jwt.header}")
     private String tokenHeader;
