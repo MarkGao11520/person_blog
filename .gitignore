@@ -1,4 +1,7 @@
 target/
+mvnw
+mvnw.cmd
+dump.rdb
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
