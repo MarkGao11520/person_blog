@@ -5,10 +5,7 @@ import com.gwf.family.business.core.results.ResultGenerator;
 import com.gwf.family.business.core.service.AuthService;
 import com.gwf.family.sys.role.entity.SysRole;
 import com.gwf.family.sys.user.entity.SysUser;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +22,7 @@ import java.util.List;
  * Created by gaowenfeng on 2017/8/9.
  */
 @RestController
+@Api(description = "权限校验")
 public class AuthController {
     @Value("${jwt.header}")
     private String tokenHeader;

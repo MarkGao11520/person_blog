@@ -8,7 +8,10 @@ import com.gwf.family.sys.user.entity.SysUser;
 import com.gwf.family.sys.user.service.SysUserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +25,7 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/sys/user")
+@Api(description = "系统用户（登录账号）相关")
 //@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class SysUserController {
     @Autowired
@@ -38,7 +42,7 @@ public class SysUserController {
         return ResultGenerator.genSuccessResult();
     }
 
-    @PutMapping("/{id:\\d+}")
+  //  @PutMapping("/{id:\\d+}")
     public Result update(SysUser sysUser) {
         sysUserService.update(sysUser);
         return ResultGenerator.genSuccessResult();
@@ -64,6 +68,11 @@ public class SysUserController {
 
     @PutMapping("/changepassword")
     @ApiOperation("修改密码")
+    @ApiResponses({
+            @ApiResponse(code = 401,message = "权限不足"),
+            @ApiResponse(code = 403,message = "不合法的token验证"),
+            @ApiResponse(code = 500,message = "服务器内部错误"),
+            @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
     public Result changePassword(ChangePasswordDto dto){
         sysUserService.changePassword(dto);
         return ResultGenerator.genSuccessResult();

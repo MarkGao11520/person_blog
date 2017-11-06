@@ -18,6 +18,7 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/sys/role")
+@Api(description = "权限相关")
 public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;
@@ -52,6 +53,11 @@ public class SysRoleController {
 
     @GetMapping
     @ApiOperation("获取用户权限列表")
+    @ApiResponses({
+            @ApiResponse(code = 401,message = "权限不足"),
+            @ApiResponse(code = 403,message = "不合法的token验证"),
+            @ApiResponse(code = 500,message = "服务器内部错误"),
+            @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
     public Result list(@RequestParam(name = "page",defaultValue = "1")@ApiParam("页数") Integer page,
                        @RequestParam(name = "size",defaultValue = "10")@ApiParam("每页行数") Integer size) {
         PageHelper.startPage(page, size);

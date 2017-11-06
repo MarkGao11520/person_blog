@@ -43,6 +43,11 @@ public class BUserInfoController {
 
     @PutMapping("/{id:\\d+}")
     @ApiOperation("修改BUserInfo")
+    @ApiResponses({
+            @ApiResponse(code = 401,message = "权限不足"),
+            @ApiResponse(code = 403,message = "不合法的token验证"),
+            @ApiResponse(code = 500,message = "服务器内部错误"),
+            @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
     @PostAuthorize("returnObject.data.username == principal.username or hasRole('ROLE_ADMIN')")
     public Result update(BUserInfo bUserInfo,@PathVariable  Integer id) {
         bUserInfo.setId(id);
@@ -52,8 +57,13 @@ public class BUserInfoController {
 
 
     @PutMapping("/lock/{id:\\d+}")
-    @ApiOperation("锁定用户")
-    @PostAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "锁定用户")
+//    @PostAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiResponses({
+            @ApiResponse(code = 401,message = "权限不足"),
+            @ApiResponse(code = 403,message = "不合法的token验证"),
+            @ApiResponse(code = 500,message = "服务器内部错误"),
+            @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
     public Result update(@PathVariable  Integer id,@RequestParam("isLock")@ApiParam("1加锁0解锁") Integer isLock) {
         BUserInfo bUserInfo = new BUserInfo();
         bUserInfo.setId(id);
@@ -64,14 +74,24 @@ public class BUserInfoController {
         return ResultGenerator.genSuccessResult();
     }
     @GetMapping("/{id:\\d+}")
-    @ApiOperation("BUserInfo根据id查询详情")
+    @ApiOperation(value = "BUserInfo根据id查询详情",response = BUserInfo.class)
+    @ApiResponses({
+            @ApiResponse(code = 401,message = "权限不足"),
+            @ApiResponse(code = 403,message = "不合法的token验证"),
+            @ApiResponse(code = 500,message = "服务器内部错误"),
+            @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
     public Result detail(@ApiParam(value = "用户id")@PathVariable Integer id) {
         BUserInfo bUserInfo = bUserInfoService.findById(id);
         return ResultGenerator.genSuccessResult(bUserInfo);
     }
 
     @GetMapping
-    @ApiOperation("根据条件分页查询用户列表")
+    @ApiOperation(value = "根据条件分页查询用户列表",response = BUserInfo.class,responseContainer = "List")
+    @ApiResponses({
+            @ApiResponse(code = 401,message = "权限不足"),
+            @ApiResponse(code = 403,message = "不合法的token验证"),
+            @ApiResponse(code = 500,message = "服务器内部错误"),
+            @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
 //    @PostAuthorize("hasRole('ROLE_ADMIN')")
     public Result list(@ApiParam(value = "页数")@RequestParam(name = "page",defaultValue = "1") Integer page,
                        @ApiParam(value = "每页行数")@RequestParam(name = "size",defaultValue = "10") Integer size,

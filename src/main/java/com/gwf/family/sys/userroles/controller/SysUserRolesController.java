@@ -17,40 +17,36 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/sys/user/roles")
+@ApiIgnore
 public class SysUserRolesController {
     @Autowired
     private SysUserRolesService sysUserRolesService;
 
   //  @PostMapping
-    @ApiIgnore
     public Result add(SysUserRoles sysUserRoles) {
         sysUserRolesService.save(sysUserRoles);
         return ResultGenerator.genSuccessResult();
     }
 
   //  @DeleteMapping("/{id:\\d+}")
-    @ApiIgnore
     public Result delete(@PathVariable Integer id) {
         sysUserRolesService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
   //  @PutMapping("/{id:\\d+}")
-    @ApiIgnore
     public Result update(SysUserRoles sysUserRoles) {
         sysUserRolesService.update(sysUserRoles);
         return ResultGenerator.genSuccessResult();
     }
 
    // @GetMapping("/{id:\\d+}")
-    @ApiIgnore
     public Result detail(@PathVariable Integer id) {
         SysUserRoles sysUserRoles = sysUserRolesService.findById(id);
         return ResultGenerator.genSuccessResult(sysUserRoles);
     }
 
    // @GetMapping
-    @ApiIgnore
     public Result list(@RequestParam(name = "page",defaultValue = "1") Integer page,
                        @RequestParam(name = "size",defaultValue = "10") Integer size) {
         PageHelper.startPage(page, size);
