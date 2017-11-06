@@ -1,5 +1,6 @@
 package com.gwf.family.business.buserinfo.entity;
 
+import com.gwf.family.sys.role.entity.SysRole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import io.swagger.annotations.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
 * Created with gwf on 2017-10-22 14:16:31.
@@ -40,13 +42,16 @@ public class BUserInfo  implements Serializable{
     private String wechat;
     /** 性别,0男1女 */
     @ApiModelProperty(value = "性别,0男1女")
-    private Boolean sex;
+    private Integer sex;
     /** 头像url */
     @ApiModelProperty(value = "头像url")
     private String headPic;
     /** 0未锁定1锁定 */
     @ApiModelProperty(value = "0未锁定1锁定")
-    private Boolean isLock;
+    private Integer isLock;
+
+    @Transient
+    private List<SysRole> roles;
 
 }
 

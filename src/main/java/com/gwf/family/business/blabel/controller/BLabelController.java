@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -16,40 +17,41 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/b/label")
+@Api(description = "标签CRUD")
 public class BLabelController {
     @Autowired
     private BLabelService bLabelService;
 
     @PostMapping
-    @ApiOperation("添加BLabel")
+    @ApiOperation(value = "添加标签")
     public Result add(BLabel bLabel) {
         bLabelService.save(bLabel);
         return ResultGenerator.genSuccessResult();
     }
 
     @DeleteMapping("/{id:\\d+}")
-    @ApiOperation("删除BLabel")
+    @ApiOperation("删除标签")
     public Result delete(@ApiParam(value = "id") @PathVariable  Integer id) {
         bLabelService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
     @PutMapping("/{id:\\d+}")
-    @ApiOperation("修改BLabel")
+    @ApiOperation("修改标签")
     public Result update(BLabel bLabel) {
         bLabelService.update(bLabel);
         return ResultGenerator.genSuccessResult();
     }
 
     @GetMapping("/{id:\\d+}")
-    @ApiOperation("BLabel根据id查询详情")
+    @ApiOperation(value = "根据标签id查询详情",response = BLabel.class)
     public Result detail(@ApiParam(value = "id")@PathVariable Integer id) {
         BLabel bLabel = bLabelService.findById(id);
         return ResultGenerator.genSuccessResult(bLabel);
     }
 
     @GetMapping
-    @ApiOperation("BLabel分页查询列表")
+    @ApiOperation(value = "分页查询标签列表",response = BLabel.class,responseContainer = "List")
     public Result list(@ApiParam(value = "页数")@RequestParam(name = "page",defaultValue = "1") Integer page,
                        @ApiParam(value = "每页行数")@RequestParam(name = "size",defaultValue = "10") Integer size) {
         PageHelper.startPage(page, size);

@@ -7,6 +7,8 @@ spring:
     url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=true
     username: root
     password: root
+  mvc:
+    throw-exception-if-no-handler-found: true
 
 # 服务器配置
 server:

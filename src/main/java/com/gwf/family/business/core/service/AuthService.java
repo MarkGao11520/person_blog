@@ -8,6 +8,6 @@ import com.gwf.family.sys.user.entity.SysUser;
  */
 public interface AuthService {
     void register(SysUser userToAdd);
-    String login(String username, String password);
+    String login(String username, String password,Integer type);
     String refresh(String oldToken);
 }

@@ -7,10 +7,19 @@
             <result column="phone" jdbcType="VARCHAR" property="phone"/>
             <result column="qq" jdbcType="VARCHAR" property="qq"/>
             <result column="wechat" jdbcType="VARCHAR" property="wechat"/>
-            <result column="sex" jdbcType="BIT" property="sex"/>
+            <result column="sex" jdbcType="INTEGER" property="sex"/>
             <result column="head_pic" jdbcType="VARCHAR" property="headPic"/>
-            <result column="is_lock" jdbcType="BIT" property="isLock"/>
+            <result column="is_lock" jdbcType="INTEGER" property="isLock"/>
+            <association column="id" property="roles" select="com.gwf.family.sys.role.dao.SysRoleRepository.findRolesByUserId"></association>
     </resultMap>
 
+
+    <select id="selectByUserQueryCondition" resultMap="BaseResultMap">
+        SELECT b.* FROM b_user_info b LEFT JOIN sys_user s ON  b.id = s.id
+        WHERE 1=1
+        <if test="userName!=null">AND s.username LIKE concat(concat('%',#{userName}),'%')</if>
+        <if test="nikeName!=null">AND b.nike_name LIKE concat(concat('%',#{nikeName}),'%')</if>
+        <if test="phone!=null">AND b.phone LIKE concat(concat('%',#{phone}),'%')</if>
+    </select>
     <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
 </mapper>

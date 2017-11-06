@@ -24,7 +24,7 @@ public class BCategory  implements Serializable{
 
     /** 主键 */
     @Id
-    @ApiModelProperty(value = "主键")
+    @ApiModelProperty(value = "主键,添加不用填写")
     private Integer id;
     /** 分类 */
     @ApiModelProperty(value = "分类")

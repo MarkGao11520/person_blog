@@ -24,7 +24,7 @@ public class BLabel  implements Serializable{
 
     /** 标签主键 */
     @Id
-    @ApiModelProperty(value = "标签主键")
+    @ApiModelProperty(value = "标签主键,添加不用填写")
     private Integer id;
     /** 标签名称 */
     @ApiModelProperty(value = "标签名称")

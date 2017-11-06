@@ -19,6 +19,7 @@ public class JwtUser implements UserDetails {
     private final String password;
     /** 权限类.*/
     private final Collection<? extends GrantedAuthority> authorities;
+    private boolean isAccountNonLocked = true;
 
     /**
      * 在createJwtFactory里注入
@@ -58,7 +59,7 @@ public class JwtUser implements UserDetails {
     @Override
     @JsonIgnore
     public boolean isAccountNonLocked() {
-        return true;
+        return isAccountNonLocked;
     }
 
     @Override

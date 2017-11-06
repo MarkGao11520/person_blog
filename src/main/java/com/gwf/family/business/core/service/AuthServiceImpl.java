@@ -1,6 +1,9 @@
 package com.gwf.family.business.core.service;
 
+import com.gwf.family.business.buserinfo.dao.BUserInfoRepository;
+import com.gwf.family.business.buserinfo.entity.BUserInfo;
 import com.gwf.family.business.core.exception.ServiceException;
+import com.gwf.family.business.core.results.AuthErrorEnum;
 import com.gwf.family.business.core.results.ResultEnum;
 import com.gwf.family.common.util.JwtUtil;
 import com.gwf.family.sys.role.entity.SysRole;
@@ -11,9 +14,11 @@ import com.gwf.family.sys.userroles.dao.SysUserRolesRepository;
 import com.gwf.family.sys.userroles.entity.SysUserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -37,6 +42,8 @@ public class AuthServiceImpl implements AuthService{
     private PasswordEncoder passwordEncoder;
     private SysRoleService sysRoleService;
     private SysUserRolesRepository sysUserRolesRepository;
+    @Autowired
+    private BUserInfoRepository bUserInfoRepository;
 
     @Autowired
     public AuthServiceImpl(AuthenticationManager authenticationManager,
@@ -80,15 +87,24 @@ public class AuthServiceImpl implements AuthService{
         result = sysUserRolesRepository.insertList(userRoles);
         if(result!=userRoles.size())
             throw new ServiceException(ResultEnum.SAVE_ERROR);
+        BUserInfo bUserInfo = new BUserInfo();
+        bUserInfo.setNikeName(userToAdd.getUsername());
+        bUserInfo.setId(userToAdd.getId());
+        result = bUserInfoRepository.insertSelective(bUserInfo);
+        if(result==0)
+            throw new ServiceException(ResultEnum.SAVE_ERROR);
     }
 
     @Override
-    public String login(String username, String password) {
+    public String login(String username, String password,Integer type) {
         UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(username, password);
         final Authentication authentication = authenticationManager.authenticate(upToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+        if(type==1&&!userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN")))
+            throw new AccessDeniedException(AuthErrorEnum.ACCESS_DENIED.getMessage());
         final String token = JwtUtil.generateToken(userDetails);
         return token;
     }

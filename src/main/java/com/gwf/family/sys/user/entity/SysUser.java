@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,15 +30,18 @@ public class SysUser  implements Serializable{
 
     /** id */
     @Id
+    @ApiModelProperty("id，登录不需要")
     private Integer id;
     /** 密码 */
+    @ApiModelProperty("密码")
     private String password;
     /** 用户名 */
+    @ApiModelProperty("用户")
     private String username;
 
     /**权限列表**/
     @Transient
-    @ApiModelProperty("权限列表，例如[{\"id\":1,\"name\":\"ROLE_USER\"}]")
+    @ApiModelProperty("权限列表，例如[{\"id\":1,\"name\":\"ROLE_ADMIN\"}],默认为用户权限")
     private List<SysRole> roles;
 
 }

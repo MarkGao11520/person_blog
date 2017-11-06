@@ -1,5 +1,8 @@
 package com.gwf.family.business.core.service;
 
+import com.gwf.family.business.buserinfo.dao.BUserInfoRepository;
+import com.gwf.family.business.buserinfo.entity.BUserInfo;
+import com.gwf.family.business.core.entity.JwtUser;
 import com.gwf.family.business.core.entity.JwtUserFactory;
 import com.gwf.family.sys.role.dao.SysRoleRepository;
 import com.gwf.family.sys.role.entity.SysRole;
@@ -26,16 +29,22 @@ public class JwtUserDetailServiceImpl implements UserDetailsService {
     private SysUserRepository userRepository;
     @Autowired
     private SysRoleRepository sysRoleRepository;
+    @Autowired
+    private BUserInfoRepository bUserInfoRepository;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         SysUser sysUser = userRepository.findByUserName(s);  //调用持久层从数据库获取用户信息
         if (sysUser == null)
             throw new UsernameNotFoundException("用户名不存在");
+        BUserInfo bUserInfo = bUserInfoRepository.selectByPrimaryKey(sysUser.getId());
         List<SysRole> roles = sysRoleRepository.findRolesByUserId(sysUser.getId());  //根据用户id或者用户权限列表
         if (CollectionUtils.isEmpty(roles))
             roles = Collections.emptyList();
         sysUser.setRoles(roles);
-        return JwtUserFactory.create(sysUser);
+        JwtUser jwtUser = JwtUserFactory.create(sysUser);
+        if(bUserInfo.getIsLock()==1)
+            jwtUser.setAccountNonLocked(false);
+        return jwtUser;
     }
 }

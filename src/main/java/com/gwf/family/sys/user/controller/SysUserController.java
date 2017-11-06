@@ -3,14 +3,17 @@ import com.gwf.family.business.core.exception.ServiceException;
 import com.gwf.family.business.core.results.Result;
 import com.gwf.family.business.core.results.ResultEnum;
 import com.gwf.family.business.core.results.ResultGenerator;
+import com.gwf.family.sys.user.dto.ChangePasswordDto;
 import com.gwf.family.sys.user.entity.SysUser;
 import com.gwf.family.sys.user.service.SysUserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -24,12 +27,12 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
-    @PostMapping
+//    @PostMapping
     public Result add(SysUser sysUser) {
         sysUserService.save(sysUser);
         return ResultGenerator.genSuccessResult();
     }
-    @DeleteMapping("/{id:\\d+}")
+//    @DeleteMapping("/{id:\\d+}")
     public Result delete(@PathVariable Integer id) {
         sysUserService.deleteById(id);
         return ResultGenerator.genSuccessResult();
@@ -41,8 +44,8 @@ public class SysUserController {
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostAuthorize("returnObject.data.username == principal.username or hasRole('ROLE_ADMIN')")
-    @GetMapping("/{id:\\d+}")
+ //   @PostAuthorize("returnObject.data.username == principal.username or hasRole('ROLE_ADMIN')")
+ //   @GetMapping("/{id:\\d+}")
     public Result detail(@PathVariable Integer id) {
         SysUser sysUser = sysUserService.findById(id);
         if(sysUser==null)
@@ -50,12 +53,19 @@ public class SysUserController {
         return ResultGenerator.genSuccessResult(sysUser);
     }
 
-    @GetMapping
+ //   @GetMapping
     public Result list(@RequestParam(name = "page",defaultValue = "1") Integer page,
                        @RequestParam(name = "size",defaultValue = "10") Integer size) {
         PageHelper.startPage(page, size);
         List<SysUser> list = sysUserService.findAll();
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+    @PutMapping("/changepassword")
+    @ApiOperation("修改密码")
+    public Result changePassword(ChangePasswordDto dto){
+        sysUserService.changePassword(dto);
+        return ResultGenerator.genSuccessResult();
     }
 }
