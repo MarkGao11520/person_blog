@@ -8,10 +8,13 @@ import com.gwf.family.business.buserinfo.entity.BUserInfo;
 import com.gwf.family.business.buserinfo.service.BUserInfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.gwf.family.common.util.UploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
+import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
@@ -25,6 +28,9 @@ import java.util.List;
 public class BUserInfoController {
     @Autowired
     private BUserInfoService bUserInfoService;
+
+    @Value("${blog.headPic.location}")
+    private String headPicLocation;
 
     @PostMapping
     @ApiOperation("添加BUserInfo")
@@ -84,6 +90,18 @@ public class BUserInfoController {
     public Result detail(@ApiParam(value = "用户id")@PathVariable Integer id) {
         BUserInfo bUserInfo = bUserInfoService.findById(id);
         return ResultGenerator.genSuccessResult(bUserInfo);
+    }
+
+    @PostMapping("/upload/headpic")
+    @ApiOperation("上传图片")
+    @ApiResponses({
+            @ApiResponse(code = 401,message = "权限不足"),
+            @ApiResponse(code = 403,message = "不合法的token验证"),
+            @ApiResponse(code = 500,message = "服务器内部错误"),
+            @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
+    public Result uploadHeadPic(MultipartFile headPic){
+        String url = UploadUtil.picImport(headPicLocation,headPic);
+        return ResultGenerator.genSuccessResult(url);
     }
 
     @GetMapping

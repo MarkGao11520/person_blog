@@ -51,6 +51,8 @@ jwt:
 blog:
   headpic:
     location: /usr/local/opt/nginx/html/blog/headpic
+  coverurl:
+    location: /usr/local/opt/nginx/html/blog/coverurl
 
 
 #druid:

@@ -36,8 +36,8 @@ public class BBlogController {
     @Autowired
     private BLabelService bLabelService;
 
-    @Value("${blog.headpic.location}")
-    private String headPicLocation;
+    @Value("${blog.coverurl.location}")
+    private String coverUrlLocation;
 
     @PostMapping
     @ApiOperation("添加博客")
@@ -56,14 +56,14 @@ public class BBlogController {
     }
 
     @PostMapping("/upload/headpic")
-    @ApiOperation("上传图片")
+    @ApiOperation("上传封面")
     @ApiResponses({
             @ApiResponse(code = 401,message = "权限不足"),
             @ApiResponse(code = 403,message = "不合法的token验证"),
             @ApiResponse(code = 500,message = "服务器内部错误"),
             @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
     public Result uploadHeadPic(MultipartFile headPic){
-        String url = UploadUtil.picImport(headPicLocation,headPic);
+        String url = UploadUtil.picImport(coverUrlLocation,headPic);
         return ResultGenerator.genSuccessResult(url);
     }
 
