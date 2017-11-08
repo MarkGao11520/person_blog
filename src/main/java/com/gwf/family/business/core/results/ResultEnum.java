@@ -13,7 +13,8 @@ public enum  ResultEnum {
     ROLE_NOT_EXISTS(4003,"权限不存在"),
     PASSWORD_ERROR(4004,"密码错误"),
     UPDATE_ERROR(4005,"修改失败"),
-    PARAM_ERROR(4006,"参数错误")
+    PARAM_ERROR(4006,"参数错误"),
+    UPLOAD_ERROR(4007,"上传失败"),
 
     ;
 

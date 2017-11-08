@@ -48,6 +48,10 @@ jwt:
       refresh: refresh
       register: "auth/register"
 
+blog:
+  headpic:
+    location: /usr/local/opt/nginx/html/blog/headpic
+
 
 #druid:
 #    url: jdbc:mysql://localhost:3306/gwf?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true

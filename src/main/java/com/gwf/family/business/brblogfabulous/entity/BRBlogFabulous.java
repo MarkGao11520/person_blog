@@ -35,7 +35,7 @@ public class BRBlogFabulous  implements Serializable{
     /** 点赞时间 */
     @ApiModelProperty(value = "点赞时间")
     private Date fabulousTime;
-    @ApiModelProperty(value = "评论的类型,1博客内容，2首页留言板")
+    @ApiModelProperty(value = "点赞的类型,1博客内容，2首页留言板")
     private Integer targetType;
     @ApiModelProperty(value = "点赞的评论id,如果是对博客点赞，则此项为空")
     private Integer commentId;

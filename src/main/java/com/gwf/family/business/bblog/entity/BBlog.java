@@ -21,6 +21,7 @@ import io.swagger.annotations.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BBlog  implements Serializable{
+    private static Integer DEFAULT_UID = 1;
 
     /** 博客主键 */
     @Id
@@ -28,7 +29,7 @@ public class BBlog  implements Serializable{
     private Integer id;
     /** 用户id */
     @ApiModelProperty(value = "用户id")
-    private Integer uid;
+    private Integer uid = DEFAULT_UID;
     /** 关键字 */
     @ApiModelProperty(value = "关键字")
     private String keyword;

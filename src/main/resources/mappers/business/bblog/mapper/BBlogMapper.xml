@@ -10,5 +10,34 @@
             <result column="cover_url" jdbcType="VARCHAR" property="coverUrl"/>
     </resultMap>
 
+    <resultMap id="QueryResultMap" type="com.gwf.family.business.bblog.dto.BlogResponseDTO">
+            <id column="id" jdbcType="INTEGER" property="id"/>
+            <result column="keyword" jdbcType="VARCHAR" property="keyword"/>
+            <result column="title" jdbcType="VARCHAR" property="title"/>
+            <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+            <result column="cover_url" jdbcType="VARCHAR" property="coverUrl"/>
+            <association column="uid"  property="author" select="com.gwf.family.business.buserinfo.dao.BUserInfoRepository.selectByPrimaryKey"/>
+            <association column="category_id" property="category" select="com.gwf.family.business.bcategory.dao.BCategoryRepository.selectByPrimaryKey"></association>
+            <association column="id" property="labels" select="com.gwf.family.business.blabel.dao.BLabelRepository.selectByBlogId"></association>
+            <association column="id" property="commentCount" select="com.gwf.family.business.bcomment.dao.BCommentRepository.selectCountByBlogId"></association>
+            <association column="id" property="favCount" select="com.gwf.family.business.brblogfabulous.dao.BRBlogFabulousRepository.selectCountByBlogId"></association>
+    </resultMap>
+
     <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
+    <insert id="insertBlogLabelBatch">
+        INSERT INTO b_r_blog_label(blog_id, label_id) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.blogId},#{item.labelId})
+        </foreach>
+    </insert>
+
+    <select id="selectBlogListByQueryCondition" resultMap="QueryResultMap">
+        SELECT DISTINCT b.id,b.uid,b.keyword,b.title,b.cover_url,cb.category_id
+        FROM b_blog b LEFT JOIN b_r_blog_label bl ON  b.id = bl.blog_id
+        LEFT JOIN b_r_category_blog cb ON b.id = cb.blog_id
+        WHERE 1=1
+        <if test="keyWord!=null">AND b.keyword LIKE concat(concat('%',#{keyWord}),'%')</if>
+        <if test="categoryId!=null">AND cb.category_id = #{categoryId}</if>
+        <if test="labelIds!=null">AND bl.label_id IN ${labelIds}</if>
+    </select>
 </mapper>

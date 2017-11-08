@@ -28,4 +28,14 @@ public interface Mapper<T>
     )
     @Override
     int insertSelective(T t);
+
+    @InsertProvider(
+            type = BaseInsertProvider.class,
+            method = "dynamicSQL"
+    )
+    @Options(
+            useGeneratedKeys = true,
+            keyProperty = "id"
+    )
+    int insert(T var1);
 }
