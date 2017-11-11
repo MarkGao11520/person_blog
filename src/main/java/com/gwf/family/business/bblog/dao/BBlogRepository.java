@@ -21,6 +21,12 @@ public interface BBlogRepository extends Mapper<BBlog> {
 
     int insertBlogLabelBatch(List<Map<String,Integer>> list);
 
+    int deleteBlogLabelBatchByBlogId(Integer blogId);
+
+    int deleteBlogCategoryBatchByBlogId(Integer blogId);
+
     List<BlogResponseDTO> selectBlogListByQueryCondition(QueryConditionDTO dto);
+
+    BlogResponseDTO selectBlogByQueryCondition(Integer id);
 }
 

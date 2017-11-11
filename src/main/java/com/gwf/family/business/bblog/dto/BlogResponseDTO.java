@@ -1,6 +1,7 @@
 package com.gwf.family.business.bblog.dto;
 
 import com.gwf.family.business.bcategory.entity.BCategory;
+import com.gwf.family.business.bcomment.dto.CommentDTO;
 import com.gwf.family.business.bcomment.entity.BComment;
 import com.gwf.family.business.blabel.entity.BLabel;
 import com.gwf.family.business.buserinfo.entity.BUserInfo;
@@ -39,5 +40,5 @@ public class BlogResponseDTO {
     @ApiModelProperty(value = "评论数")
     private Integer commentCount;
     @ApiModelProperty(value = "评论列表,查询详情时有值，查询列表无值")
-    private List<BComment> comments;
+    private List<CommentDTO> comments;
 }

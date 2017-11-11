@@ -55,7 +55,7 @@ public class BBlogController {
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostMapping("/upload/headpic")
+    @PostMapping("/upload/coverurl")
     @ApiOperation("上传封面")
     @ApiResponses({
             @ApiResponse(code = 401,message = "权限不足"),
@@ -68,7 +68,7 @@ public class BBlogController {
     }
 
     @DeleteMapping("/{id:\\d+}")
-    @ApiOperation("删除BBlog")
+    @ApiOperation("根据id删除博客")
     @ApiResponses({
             @ApiResponse(code = 401,message = "权限不足"),
             @ApiResponse(code = 403,message = "不合法的token验证"),
@@ -80,31 +80,31 @@ public class BBlogController {
     }
 
     @PutMapping("/{id:\\d+}")
-    @ApiOperation("修改BBlog")
+    @ApiOperation("根据id修改博客信息")
     @ApiResponses({
             @ApiResponse(code = 401,message = "权限不足"),
             @ApiResponse(code = 403,message = "不合法的token验证"),
             @ApiResponse(code = 500,message = "服务器内部错误"),
             @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
-    public Result update(BBlog bBlog) {
-        bBlogService.update(bBlog);
+    public Result update(@ApiParam(value = "id") @PathVariable  Integer id,BlogRequestDTO dto) {
+        bBlogService.updateDto(id,dto);
         return ResultGenerator.genSuccessResult();
     }
 
     @GetMapping("/{id:\\d+}")
-    @ApiOperation("BBlog根据id查询详情")
+    @ApiOperation(value = "根据id查询博客详情",response = BlogResponseDTO.class)
     @ApiResponses({
             @ApiResponse(code = 401,message = "权限不足"),
             @ApiResponse(code = 403,message = "不合法的token验证"),
             @ApiResponse(code = 500,message = "服务器内部错误"),
             @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
     public Result detail(@ApiParam(value = "id")@PathVariable Integer id) {
-        BBlog bBlog = bBlogService.findById(id);
+        BlogResponseDTO bBlog = bBlogService.findById(id);
         return ResultGenerator.genSuccessResult(bBlog);
     }
 
     @GetMapping
-    @ApiOperation(value = "根据条件分页查询博客列表",response = BlogResponseDTO.class)
+    @ApiOperation(value = "根据条件分页查询博客列表",response = BlogResponseDTO.class,responseContainer = "List")
     @ApiResponses({
             @ApiResponse(code = 401,message = "权限不足"),
             @ApiResponse(code = 403,message = "不合法的token验证"),

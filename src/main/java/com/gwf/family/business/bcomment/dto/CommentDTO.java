@@ -1,27 +1,15 @@
-package com.gwf.family.business.bcomment.entity;
+package com.gwf.family.business.bcomment.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.io.Serializable;
+import javax.persistence.Id;
 import java.util.Date;
 import java.util.List;
-import io.swagger.annotations.*;
 
 /**
-* Created with gwf on 2017-10-22 14:16:31.
-*/
-@Entity
-@Data
-@Table(name = "b_comment")
-@NoArgsConstructor
-@AllArgsConstructor
-public class BComment  implements Serializable{
-
+ * Created by gaowenfeng on 2017/11/11.
+ */
+public class CommentDTO {
     /** 主键 */
     @Id
     @ApiModelProperty(value = "主键")
@@ -42,8 +30,6 @@ public class BComment  implements Serializable{
     private Integer targetId;
     @ApiModelProperty(value = "评论的类型,1博客内容，2首页留言板")
     private Integer targetType;
-
-
-
+    @ApiModelProperty(value = "评论子列表")
+    private List<CommentDTO> commentDTOChildList;
 }
-

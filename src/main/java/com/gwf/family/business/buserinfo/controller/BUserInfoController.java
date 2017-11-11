@@ -29,7 +29,7 @@ public class BUserInfoController {
     @Autowired
     private BUserInfoService bUserInfoService;
 
-    @Value("${blog.headPic.location}")
+    @Value("${blog.headpic.location}")
     private String headPicLocation;
 
     @PostMapping

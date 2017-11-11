@@ -33,7 +33,7 @@ public class BBlogServiceImpl extends AbstractService<BBlog> implements BBlogSer
     public void saveDto(BlogRequestDTO dto) {
         BBlog blogToAdd = new BBlog();
         BeanUtils.copyProperties(dto,blogToAdd);
-        int result = bBlogRepository.insert(blogToAdd);
+        int result = bBlogRepository.insertSelective(blogToAdd);
         if(result<1)
             throw new ServiceException(ResultEnum.SAVE_ERROR);
         result = bBlogRepository.insertBlogCategory(dto.getCategoryId(),blogToAdd.getId());
@@ -68,5 +68,59 @@ public class BBlogServiceImpl extends AbstractService<BBlog> implements BBlogSer
         if(StringUtils.isEmpty(dto.getKeyWord()))
             dto.setKeyWord(null);
         return bBlogRepository.selectBlogListByQueryCondition(dto);
+    }
+
+    @Override
+    @Transactional
+    public void updateDto(Integer id,BlogRequestDTO dto) {
+        BBlog blogToUpdate = new BBlog();
+        BeanUtils.copyProperties(dto,blogToUpdate);
+        blogToUpdate.setId(id);
+        int result = bBlogRepository.updateByPrimaryKeySelective(blogToUpdate);
+        if(result!=1)
+            throw new ServiceException(ResultEnum.UPDATE_ERROR);
+
+        if(!StringUtils.isEmpty(dto.getCategoryId())){
+            bBlogRepository.deleteBlogCategoryBatchByBlogId(id);
+            result = bBlogRepository.insertBlogCategory(dto.getCategoryId(),id);
+            if(result<1)
+                throw new ServiceException(ResultEnum.SAVE_ERROR);
+        }
+        if(!StringUtils.isEmpty(dto.getLabelIds())){
+            bBlogRepository.deleteBlogLabelBatchByBlogId(id);
+            List<Map<String,Integer>> list = new ArrayList<>();
+            String[] ids = CommonUtil.spiltString(dto.getLabelIds(),",");
+            for(String labelId:ids) {
+                Map<String, Integer> map = new HashMap<>();
+                map.put("blogId", id);
+                try {
+                    map.put("labelId", Integer.parseInt(labelId));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new ServiceException(ResultEnum.PARAM_ERROR);
+                }
+                list.add(map);
+            }
+            result = bBlogRepository.insertBlogLabelBatch(list);
+            if(result!=list.size())
+                throw new ServiceException(ResultEnum.UPDATE_ERROR);
+        }
+
+
+
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        bBlogRepository.deleteBlogCategoryBatchByBlogId(id);
+        bBlogRepository.deleteBlogLabelBatchByBlogId(id);
+        int result = bBlogRepository.deleteByPrimaryKey(id);
+        if(result!=1)
+            throw new ServiceException(ResultEnum.DELETE_ERROR);
+    }
+
+    @Override
+    public BlogResponseDTO findById(Integer id) {
+        return bBlogRepository.selectBlogByQueryCondition(id);
     }
 }

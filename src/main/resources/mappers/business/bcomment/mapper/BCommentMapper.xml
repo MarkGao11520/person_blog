@@ -7,9 +7,29 @@
             <result column="blog_id" jdbcType="INTEGER" property="blogId"/>
             <result column="content" jdbcType="LONGVARCHAR" property="content"/>
             <result column="stay_time" jdbcType="TIMESTAMP" property="stayTime"/>
-            <result column="target_uid" javaType="INTEGER" property="targetUid"></result>
+            <result column="target_id" javaType="INTEGER" property="targetUid"></result>
             <result column="target_type" javaType="INTEGER" property="targetType"></result>
     </resultMap>
 
+    <resultMap id="CommonDTOResultMap" type="com.gwf.family.business.bcomment.dto.CommentDTO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="uid" jdbcType="INTEGER" property="uid"/>
+        <result column="blog_id" jdbcType="INTEGER" property="blogId"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+        <result column="stay_time" jdbcType="TIMESTAMP" property="stayTime"/>
+        <result column="target_id" javaType="INTEGER" property="targetId"></result>
+        <result column="target_type" javaType="INTEGER" property="targetType"></result>
+        <association column="id" property="commentDTOChildList" select="com.gwf.family.business.bcomment.dao.BCommentRepository.selectCommentListByTargetId"></association>
+    </resultMap>
+
     <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
+    <select id="selectCommentListByBlogId" resultMap="CommonDTOResultMap">
+          SELECT bc.id,bc.uid,bc.content,bc.stay_time,bc.stay_time,bc.target_id,bc.target_type FROM b_comment bc WHERE bc.blog_id = #{blogId} AND bc.target_type = 1
+    </select>
+
+    <select id="selectCommentListByTargetId" resultMap="CommonDTOResultMap">
+        SELECT
+            bc.id,bc.uid,bc.content,bc.stay_time,bc.stay_time,bc.target_id,bc.target_type
+        FROM b_comment bc WHERE bc.target_type = 2 AND bc.target_id = #{targetId}
+    </select>
 </mapper>

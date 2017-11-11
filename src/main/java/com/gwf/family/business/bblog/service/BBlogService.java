@@ -16,4 +16,10 @@ public interface BBlogService extends Service<BBlog> {
     void saveDto(BlogRequestDTO dto);
 
     List<BlogResponseDTO> findListByQueryConditionDto(QueryConditionDTO dto);
+
+    void updateDto(Integer id,BlogRequestDTO dto);
+
+    void deleteById(Integer id);
+
+    BlogResponseDTO findById(Integer id);
 }
