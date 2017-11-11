@@ -20,6 +20,7 @@
         <result column="target_id" javaType="INTEGER" property="targetId"></result>
         <result column="target_type" javaType="INTEGER" property="targetType"></result>
         <association column="id" property="commentDTOChildList" select="com.gwf.family.business.bcomment.dao.BCommentRepository.selectCommentListByTargetId"></association>
+        <association column="id" property="favCount" select="com.gwf.family.business.brblogfabulous.dao.BRBlogFabulousRepository.selectCountByCommentId"></association>
     </resultMap>
 
     <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->

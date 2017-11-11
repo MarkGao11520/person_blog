@@ -10,4 +10,11 @@
     </resultMap>
 
     <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
+    <select id="selectByBlogId" resultMap="BaseResultMap">
+        select * FROM b_visit bv
+        <if test="blogId!=null">
+           WHERE bv.blog_id = #{blogId}
+        </if>
+        ORDER BY bv.visit_time desc
+    </select>
 </mapper>

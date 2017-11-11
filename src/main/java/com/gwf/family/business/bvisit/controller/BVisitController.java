@@ -16,44 +16,30 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/b/visit")
+@Api(description = "访客表",position = 10)
 public class BVisitController {
     @Autowired
     private BVisitService bVisitService;
 
     @PostMapping
     @ApiOperation("添加BVisit")
+    @ApiResponses({
+            @ApiResponse(code = 401,message = "权限不足"),
+            @ApiResponse(code = 403,message = "不合法的token验证"),
+            @ApiResponse(code = 500,message = "服务器内部错误"),
+            @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
     public Result add(BVisit bVisit) {
         bVisitService.save(bVisit);
         return ResultGenerator.genSuccessResult();
     }
 
-    @DeleteMapping("/{id:\\d+}")
-    @ApiOperation("删除BVisit")
-    public Result delete(@ApiParam(value = "id") @PathVariable  Integer id) {
-        bVisitService.deleteById(id);
-        return ResultGenerator.genSuccessResult();
-    }
-
-    @PutMapping("/{id:\\d+}")
-    @ApiOperation("修改BVisit")
-    public Result update(BVisit bVisit) {
-        bVisitService.update(bVisit);
-        return ResultGenerator.genSuccessResult();
-    }
-
-    @GetMapping("/{id:\\d+}")
-    @ApiOperation("BVisit根据id查询详情")
-    public Result detail(@ApiParam(value = "id")@PathVariable Integer id) {
-        BVisit bVisit = bVisitService.findById(id);
-        return ResultGenerator.genSuccessResult(bVisit);
-    }
-
     @GetMapping
-    @ApiOperation("BVisit分页查询列表")
+    @ApiOperation(value = "分页查询访问量列表列表",response = BVisit.class,responseContainer = "List")
     public Result list(@ApiParam(value = "页数")@RequestParam(name = "page",defaultValue = "1") Integer page,
-                       @ApiParam(value = "每页行数")@RequestParam(name = "size",defaultValue = "10") Integer size) {
+                       @ApiParam(value = "每页行数")@RequestParam(name = "size",defaultValue = "10") Integer size,
+                       @ApiParam(value = "博客id，不填写则查询全部")@RequestParam(name = "blogId",required = false) Integer blogId) {
         PageHelper.startPage(page, size);
-        List<BVisit> list = bVisitService.findAll();
+        List<BVisit> list = bVisitService.findByBlogId(blogId);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }

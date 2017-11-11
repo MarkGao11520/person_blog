@@ -19,4 +19,8 @@ public class BRBlogFabulousServiceImpl extends AbstractService<BRBlogFabulous> i
     @Autowired
     private BRBlogFabulousRepository bRBlogFabulousRepository;
 
+    @Override
+    public void delete(BRBlogFabulous brBlogFabulous) {
+        bRBlogFabulousRepository.delete(brBlogFabulous);
+    }
 }

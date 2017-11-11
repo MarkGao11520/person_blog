@@ -12,5 +12,8 @@ public interface BRBlogFabulousRepository extends Mapper<BRBlogFabulous> {
 
     @Select("select count(id) from b_r_blog_fabulous where blog_id = #{blogId} and target_type = 1")
     int selectCountByBlogId(Integer blogId);
+
+    @Select("select count(id) from b_r_blog_fabulous where comment_id = #{commentId} and target_type = 2")
+    int selectCountByCommentId(Integer commentId);
 }
 

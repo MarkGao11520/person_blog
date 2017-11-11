@@ -36,7 +36,7 @@ public class BVisit  implements Serializable{
     @ApiModelProperty(value = "访客时间")
     private Date visitTime;
     /** 访客id */
-    @ApiModelProperty(value = "访客id")
+    @ApiModelProperty(value = "访客ip,添加不用传")
     private String visitIp;
 
 }

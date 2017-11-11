@@ -20,6 +20,7 @@
             <association column="id" property="labels" select="com.gwf.family.business.blabel.dao.BLabelRepository.selectByBlogId"></association>
             <association column="id" property="commentCount" select="com.gwf.family.business.bcomment.dao.BCommentRepository.selectCountByBlogId"></association>
             <association column="id" property="favCount" select="com.gwf.family.business.brblogfabulous.dao.BRBlogFabulousRepository.selectCountByBlogId"></association>
+            <association column="id" property="visitCount" select="com.gwf.family.business.bvisit.dao.BVisitRepository.selectCountByBlodId"></association>
     </resultMap>
 
     <resultMap id="QueryOneResultMap" extends="QueryResultMap" type="com.gwf.family.business.bblog.dto.BlogResponseDTO">

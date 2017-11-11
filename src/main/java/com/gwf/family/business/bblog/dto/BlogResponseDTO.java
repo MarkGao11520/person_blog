@@ -41,4 +41,6 @@ public class BlogResponseDTO {
     private Integer commentCount;
     @ApiModelProperty(value = "评论列表,查询详情时有值，查询列表无值")
     private List<CommentDTO> comments;
+    @ApiModelProperty(value = "访问量")
+    private Integer visitCount;
 }

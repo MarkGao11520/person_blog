@@ -8,4 +8,5 @@ import com.gwf.family.business.core.service.Service;
  */
 public interface BRBlogFabulousService extends Service<BRBlogFabulous> {
 
+    void delete(BRBlogFabulous brBlogFabulous);
 }

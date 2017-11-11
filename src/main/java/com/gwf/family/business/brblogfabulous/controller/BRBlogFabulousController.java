@@ -16,45 +16,32 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/b/r/blog/fabulous")
+@Api(description = "点赞CURD",position = 8)
 public class BRBlogFabulousController {
     @Autowired
     private BRBlogFabulousService bRBlogFabulousService;
 
     @PostMapping
-    @ApiOperation("添加BRBlogFabulous")
+    @ApiOperation("点赞")
+    @ApiResponses({
+            @ApiResponse(code = 401,message = "权限不足"),
+            @ApiResponse(code = 403,message = "不合法的token验证"),
+            @ApiResponse(code = 500,message = "服务器内部错误"),
+            @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
     public Result add(BRBlogFabulous bRBlogFabulous) {
         bRBlogFabulousService.save(bRBlogFabulous);
         return ResultGenerator.genSuccessResult();
     }
 
-    @DeleteMapping("/{id:\\d+}")
-    @ApiOperation("删除BRBlogFabulous")
-    public Result delete(@ApiParam(value = "id") @PathVariable  Integer id) {
-        bRBlogFabulousService.deleteById(id);
+    @DeleteMapping()
+    @ApiOperation("根据id取消点赞")
+    @ApiResponses({
+            @ApiResponse(code = 401,message = "权限不足"),
+            @ApiResponse(code = 403,message = "不合法的token验证"),
+            @ApiResponse(code = 500,message = "服务器内部错误"),
+            @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
+    public Result delete(BRBlogFabulous brBlogFabulous) {
+        bRBlogFabulousService.delete(brBlogFabulous);
         return ResultGenerator.genSuccessResult();
-    }
-
-    @PutMapping("/{id:\\d+}")
-    @ApiOperation("修改BRBlogFabulous")
-    public Result update(BRBlogFabulous bRBlogFabulous) {
-        bRBlogFabulousService.update(bRBlogFabulous);
-        return ResultGenerator.genSuccessResult();
-    }
-
-    @GetMapping("/{id:\\d+}")
-    @ApiOperation("BRBlogFabulous根据id查询详情")
-    public Result detail(@ApiParam(value = "id")@PathVariable Integer id) {
-        BRBlogFabulous bRBlogFabulous = bRBlogFabulousService.findById(id);
-        return ResultGenerator.genSuccessResult(bRBlogFabulous);
-    }
-
-    @GetMapping
-    @ApiOperation("BRBlogFabulous分页查询列表")
-    public Result list(@ApiParam(value = "页数")@RequestParam(name = "page",defaultValue = "1") Integer page,
-                       @ApiParam(value = "每页行数")@RequestParam(name = "size",defaultValue = "10") Integer size) {
-        PageHelper.startPage(page, size);
-        List<BRBlogFabulous> list = bRBlogFabulousService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
     }
 }

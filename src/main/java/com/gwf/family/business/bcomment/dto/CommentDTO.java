@@ -32,6 +32,8 @@ public class CommentDTO {
     private Integer targetId;
     @ApiModelProperty(value = "评论的类型,1博客内容，2首页留言板")
     private Integer targetType;
+    @ApiModelProperty(value = "点赞数")
+    private Integer favCount;
     @ApiModelProperty(value = "评论子列表")
     private List<CommentDTO> commentDTOChildList;
 }
