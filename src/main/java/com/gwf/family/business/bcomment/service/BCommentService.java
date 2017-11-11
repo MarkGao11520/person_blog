@@ -1,6 +1,9 @@
 package com.gwf.family.business.bcomment.service;
+import com.gwf.family.business.bcomment.dto.CommentDTO;
 import com.gwf.family.business.bcomment.entity.BComment;
 import com.gwf.family.business.core.service.Service;
+
+import java.util.List;
 
 
 /**
@@ -8,4 +11,5 @@ import com.gwf.family.business.core.service.Service;
  */
 public interface BCommentService extends Service<BComment> {
 
+    List<CommentDTO> findByBlogId(Integer blogId);
 }

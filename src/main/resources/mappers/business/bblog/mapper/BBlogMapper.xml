@@ -56,7 +56,7 @@
     </select>
 
 
-    <select id="selectBlogByQueryCondition" resultMap="QueryResultMap">
+    <select id="selectBlogByQueryCondition" resultMap="QueryOneResultMap">
         SELECT DISTINCT b.id,b.uid,b.keyword,b.title,b.cover_url,b.content,cb.category_id
         FROM b_blog b LEFT JOIN b_r_blog_label bl ON  b.id = bl.blog_id
         LEFT JOIN b_r_category_blog cb ON b.id = cb.blog_id

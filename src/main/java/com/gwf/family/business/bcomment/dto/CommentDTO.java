@@ -1,6 +1,7 @@
 package com.gwf.family.business.bcomment.dto;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import javax.persistence.Id;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * Created by gaowenfeng on 2017/11/11.
  */
+@Data
 public class CommentDTO {
     /** 主键 */
     @Id

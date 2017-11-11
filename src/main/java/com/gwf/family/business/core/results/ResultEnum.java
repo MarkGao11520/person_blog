@@ -15,7 +15,7 @@ public enum  ResultEnum {
     UPDATE_ERROR(4005,"修改失败"),
     PARAM_ERROR(4006,"参数错误"),
     UPLOAD_ERROR(4007,"上传失败"),
-    DELETE_ERROR(4008,"删除失败")
+    DELETE_ERROR(4008,"删除失败"),
     ;
 
     private Integer code;

@@ -18,5 +18,6 @@ public interface BCommentRepository extends Mapper<BComment> {
     List<CommentDTO> selectCommentListByBlogId(Integer blogId);
 
     List<CommentDTO> selectCommentListByTargetId(Integer targetId);
+
 }
 

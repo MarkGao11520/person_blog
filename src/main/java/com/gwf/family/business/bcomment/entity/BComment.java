@@ -24,7 +24,7 @@ public class BComment  implements Serializable{
 
     /** 主键 */
     @Id
-    @ApiModelProperty(value = "主键")
+    @ApiModelProperty(value = "主键，添加不需要填写")
     private Integer id;
     /** 用户id */
     @ApiModelProperty(value = "用户id")
@@ -38,7 +38,7 @@ public class BComment  implements Serializable{
     /** 评论时间 */
     @ApiModelProperty(value = "评论时间")
     private Date stayTime;
-    @ApiModelProperty(value = "评论的目标id")
+    @ApiModelProperty(value = "评论的目标id，评论为博客时不需要填写")
     private Integer targetId;
     @ApiModelProperty(value = "评论的类型,1博客内容，2首页留言板")
     private Integer targetType;
