@@ -1,0 +1,78 @@
+spring:
+  # 数据库配置
+  jackson:
+    default-property-inclusion: non_null
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://db/blog?characterEncoding=utf-8&useSSL=false
+    username: docker
+    password: 123456
+  mvc:
+    # 在没有找到资源的时候抛异常
+    throw-exception-if-no-handler-found: true
+
+# 服务器配置
+server:
+  port: 9090
+  context-path: /blog/api
+
+# mybatis配置
+mybatis:
+  # 配置映射类所在包名
+  # type-aliases-package: com.gwf.family.business.domain
+  # 配置mapper xml文件所在路径，这里是一个数组
+  mapper-locations:
+    - mappers/**/*.xml
+
+# 通用mapper，配置通用的增删改查，省去每一个xml文件都写
+mapper:
+    mappers:
+        - com.gwf.family.business.core.mapper.Mapper
+    not-empty: false
+    identity: MYSQL
+
+# 分页查询的配置
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+logging:
+  level:
+      com.gwf.family: trace
+
+# 登录相关的配置
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 604800
+  tokenHead: "Bearer "
+  route:
+    authentication:
+      # 登录地址
+      path: auth
+      # 刷新token
+      refresh: refresh
+      # 注册地址
+      register: "auth/register"
+
+blog:
+  # 头像图片的地址
+  headpic:
+    location: /usr/local/opt/nginx/html/blog/headpic
+  # 封面的地址
+  coverurl:
+    location: /usr/local/opt/nginx/html/blog/coverurl
+
+
+#druid:
+#    url: jdbc:mysql://localhost:3306/gwf?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+#    username: root
+#    password: root
+#    initial-size: 1
+#    min-idle: 1
+#    max-active: 20
+#    test-on-borrow: true
+
+
+

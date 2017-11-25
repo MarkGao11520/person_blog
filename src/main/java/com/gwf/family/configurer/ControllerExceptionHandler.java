@@ -17,6 +17,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**
  * Created by gaowenfeng on 2017/10/3.
+ * 统一异常处理
  */
 @ControllerAdvice
 @Slf4j

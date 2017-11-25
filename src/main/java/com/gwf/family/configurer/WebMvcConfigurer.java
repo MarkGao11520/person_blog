@@ -43,11 +43,11 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     @Value("${spring.profiles.active}")
     private String env;//当前激活的配置文件
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("/connect");
-    }
 
+    /**
+     * 资源路径的映射
+     * @param registry
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
@@ -60,49 +60,6 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     }
 
 
-
-
-
-
-    private void responseResult(HttpServletResponse response, Result result) {
-        response.setCharacterEncoding("UTF-8");
-        response.setHeader("Content-type", "application/json;charset=UTF-8");
-        response.setStatus(result.getCode());
-        try {
-            response.getWriter().write(JSON.toJSONString(result));
-        } catch (IOException ex) {
-            log.error(ex.getMessage());
-        }
-    }
-
-    /**
-     * 一个简单的签名认证，规则：请求参数按ASCII码排序后，拼接为a=value&b=value...这样的字符串后进行MD5
-     *
-     * @param request
-     * @param requestSign
-     * @return
-     */
-    private boolean validateSign(HttpServletRequest request, String requestSign) {
-        List<String> keys = new ArrayList<String>(request.getParameterMap().keySet());
-        Collections.sort(keys);
-
-        String linkString = "";
-
-        for (String key : keys) {
-            if (!"sign".equals(key)) {
-                linkString += key + "=" + request.getParameter(key) + "&";
-            }
-        }
-        if (StringUtils.isEmpty(linkString))
-            return false;
-
-        linkString = linkString.substring(0, linkString.length() - 1);
-        String key = "Potato";//自己修改
-        String sign = DigestUtils.md5Hex(linkString + key);
-
-        return StringUtils.equals(sign, requestSign);
-
-    }
 
 
 }

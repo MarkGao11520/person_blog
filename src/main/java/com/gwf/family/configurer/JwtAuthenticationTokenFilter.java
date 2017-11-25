@@ -22,6 +22,7 @@ import java.io.IOException;
 
 /**
  * Created by gaowenfeng on 2017/8/9.
+ * 登录权限
  */
 @Slf4j
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
