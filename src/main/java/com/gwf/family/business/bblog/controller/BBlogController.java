@@ -47,10 +47,6 @@ public class BBlogController {
             @ApiResponse(code = 500,message = "服务器内部错误"),
             @ApiResponse(code = 400,message = "业务逻辑错误的具体原因")})
     public Result add(BlogRequestDTO dto) {
-        if(dto.getCategoryId()==null||bCategoryService.findById(dto.getCategoryId())==null)
-            throw new ServiceException(ResultEnum.PARAM_ERROR);
-        if(StringUtils.isEmpty(dto.getLabelIds())||bLabelService.findByIds(dto.getLabelIds())==null)
-            throw new ServiceException(ResultEnum.PARAM_ERROR);
         bBlogService.saveDto(dto);
         return ResultGenerator.genSuccessResult();
     }

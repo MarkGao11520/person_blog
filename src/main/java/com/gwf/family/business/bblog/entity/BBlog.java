@@ -42,6 +42,8 @@ public class BBlog  implements Serializable{
     /** 封面url */
     @ApiModelProperty(value = "封面url")
     private String coverUrl;
+    @ApiModelProperty(value = "发布时间")
+    private Date releaseTime;
 
 }
 

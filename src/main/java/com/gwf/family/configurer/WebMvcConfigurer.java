@@ -43,6 +43,9 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     @Value("${spring.profiles.active}")
     private String env;//当前激活的配置文件
 
+    @Value("${blog.uploadurl}")
+    private String uploadUrl;
+
 
     /**
      * 资源路径的映射
@@ -56,8 +59,10 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
                 .addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:"+uploadUrl);
         super.addResourceHandlers(registry);
     }
+
 
 
 

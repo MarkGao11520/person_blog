@@ -8,13 +8,15 @@ import com.gwf.family.business.buserinfo.entity.BUserInfo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by gaowenfeng on 2017/11/7.
  */
 @Data
-public class BlogResponseDTO {
+public class BlogResponseDTO implements Comparable<BlogResponseDTO>{
     @ApiModelProperty(value = "id")
     private Integer id;
     @ApiModelProperty(value = "作者")
@@ -43,4 +45,18 @@ public class BlogResponseDTO {
     private List<CommentDTO> comments;
     @ApiModelProperty(value = "访问量")
     private Integer visitCount;
+    @ApiModelProperty(value = "发布时间")
+    private Date releaseTime;
+
+
+    @Override
+    public int compareTo(BlogResponseDTO o) {
+        if(this.visitCount>o.visitCount){
+            return 1;
+        }else if(this.visitCount < o.visitCount){
+            return -1;
+        }else {
+            return this.releaseTime.compareTo(o.getReleaseTime());
+        }
+    }
 }

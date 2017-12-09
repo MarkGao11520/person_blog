@@ -72,7 +72,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/**").permitAll()  //登录注册等请求过滤
                 .antMatchers("/code/**").permitAll()  //下载代码请求过滤
                 .antMatchers("/favicon.ico","/swagger-ui.html","/").permitAll()
-                .antMatchers("/b/visit/**").permitAll()
+                .antMatchers("/b/visit/**","/b/blog/**","/b/comment/**","/b/category/**").permitAll()
+                .antMatchers("/upload/**").permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .exceptionHandling()  //验证不通过的配置

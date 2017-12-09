@@ -8,6 +8,7 @@
             <result column="title" jdbcType="VARCHAR" property="title"/>
             <result column="content" jdbcType="LONGVARCHAR" property="content"/>
             <result column="cover_url" jdbcType="VARCHAR" property="coverUrl"/>
+            <result column="release_time" jdbcType="DATE" property="releaseTime"></result>
     </resultMap>
 
     <resultMap id="QueryResultMap" type="com.gwf.family.business.bblog.dto.BlogResponseDTO">
@@ -15,7 +16,8 @@
             <result column="keyword" jdbcType="VARCHAR" property="keyword"/>
             <result column="title" jdbcType="VARCHAR" property="title"/>
             <result column="cover_url" jdbcType="VARCHAR" property="coverUrl"/>
-            <association column="uid"  property="author" select="com.gwf.family.business.buserinfo.dao.BUserInfoRepository.selectByPrimaryKey"/>
+            <result column="release_time" jdbcType="VARCHAR" property="releaseTime"></result>
+        <association column="uid"  property="author" select="com.gwf.family.business.buserinfo.dao.BUserInfoRepository.selectByPrimaryKey"/>
             <association column="category_id" property="category" select="com.gwf.family.business.bcategory.dao.BCategoryRepository.selectByPrimaryKey"></association>
             <association column="id" property="labels" select="com.gwf.family.business.blabel.dao.BLabelRepository.selectByBlogId"></association>
             <association column="id" property="commentCount" select="com.gwf.family.business.bcomment.dao.BCommentRepository.selectCountByBlogId"></association>
@@ -47,7 +49,7 @@
     </delete>
 
     <select id="selectBlogListByQueryCondition" resultMap="QueryResultMap">
-        SELECT DISTINCT b.id,b.uid,b.keyword,b.title,b.cover_url,cb.category_id
+        SELECT DISTINCT b.id,b.uid,b.keyword,b.title,b.cover_url,cb.category_id,b.release_time
         FROM b_blog b LEFT JOIN b_r_blog_label bl ON  b.id = bl.blog_id
         LEFT JOIN b_r_category_blog cb ON b.id = cb.blog_id
         WHERE 1=1
@@ -58,7 +60,7 @@
 
 
     <select id="selectBlogByQueryCondition" resultMap="QueryOneResultMap">
-        SELECT DISTINCT b.id,b.uid,b.keyword,b.title,b.cover_url,b.content,cb.category_id
+        SELECT DISTINCT b.id,b.uid,b.keyword,b.title,b.cover_url,b.content,cb.category_id,b.release_time
         FROM b_blog b LEFT JOIN b_r_blog_label bl ON  b.id = bl.blog_id
         LEFT JOIN b_r_category_blog cb ON b.id = cb.blog_id
         WHERE b.id = #{id}

@@ -19,6 +19,8 @@ public class CommentDTO {
     /** 用户id */
     @ApiModelProperty(value = "用户id")
     private Integer uid;
+    @ApiModelProperty(value = "用户名")
+    private String uname;
     /** 博客id */
     @ApiModelProperty(value = "博客id")
     private Integer blogId;

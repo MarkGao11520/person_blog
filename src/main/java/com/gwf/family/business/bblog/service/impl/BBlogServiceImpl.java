@@ -67,7 +67,11 @@ public class BBlogServiceImpl extends AbstractService<BBlog> implements BBlogSer
             dto.setLabelIds(null);
         if(StringUtils.isEmpty(dto.getKeyWord()))
             dto.setKeyWord(null);
-        return bBlogRepository.selectBlogListByQueryCondition(dto);
+
+        List<BlogResponseDTO> responseDTOList = bBlogRepository.selectBlogListByQueryCondition(dto);
+        Collections.sort(responseDTOList);
+        Collections.reverse(responseDTOList);
+        return responseDTOList;
     }
 
     @Override

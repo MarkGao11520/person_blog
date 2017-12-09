@@ -14,6 +14,7 @@
     <resultMap id="CommonDTOResultMap" type="com.gwf.family.business.bcomment.dto.CommentDTO">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="uid" jdbcType="INTEGER" property="uid"/>
+        <result column="nike_name" jdbcType="VARCHAR" property="uname"></result>
         <result column="blog_id" jdbcType="INTEGER" property="blogId"/>
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
         <result column="stay_time" jdbcType="TIMESTAMP" property="stayTime"/>
@@ -25,12 +26,15 @@
 
     <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
     <select id="selectCommentListByBlogId" resultMap="CommonDTOResultMap">
-          SELECT bc.id,bc.uid,bc.content,bc.stay_time,bc.stay_time,bc.target_id,bc.target_type FROM b_comment bc WHERE bc.blog_id = #{blogId} AND bc.target_type = 1
+          SELECT bc.id,bc.uid,bc.content,bc.stay_time,bc.stay_time,bc.target_id,bc.target_type,u.nike_name
+          FROM b_comment bc LEFT JOIN  b_user_info u ON  bc.uid = u.id
+          WHERE bc.blog_id = #{blogId} AND bc.target_type = 1
     </select>
 
     <select id="selectCommentListByTargetId" resultMap="CommonDTOResultMap">
         SELECT
-            bc.id,bc.uid,bc.content,bc.stay_time,bc.stay_time,bc.target_id,bc.target_type
-        FROM b_comment bc WHERE bc.target_type = 2 AND bc.target_id = #{targetId}
+            bc.id,bc.uid,bc.content,bc.stay_time,bc.stay_time,bc.target_id,bc.target_type,u.nike_name
+        FROM b_comment bc LEFT JOIN  b_user_info u ON  bc.uid = u.id
+        WHERE bc.target_type = 2 AND bc.target_id = #{targetId}
     </select>
 </mapper>

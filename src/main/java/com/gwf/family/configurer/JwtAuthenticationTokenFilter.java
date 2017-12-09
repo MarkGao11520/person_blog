@@ -6,12 +6,14 @@ import com.gwf.family.common.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -48,6 +50,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE,PUT");
         response.setHeader("Access-Control-Allow-Headers","Authorization,Origin,X-Requested-With,X-File-Name,Content-Type, Accept");
         String authHeader = request.getHeader(this.tokenHeader);  // 取得header
+      //  System.out.println(request.getMethod());
+      //  System.out.println(request.getRequestURI());
+        if(request.getMethod().equals(RequestMethod.OPTIONS.name())){
+            response.setStatus(HttpStatus.OK.value());
+            return;
+        }
         if (authHeader != null && authHeader.startsWith(tokenHead)) {  //判断header头
             final String authToken = authHeader.substring(tokenHead.length()); // The part after "Bearer "
             String username = JwtUtil.getUsernameFromToken(authToken);   //从jwt中获取信息，如果要缓存很多信息可以用Claims
